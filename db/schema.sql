@@ -1,8 +1,6 @@
-DROP DATABASE IF EXISTS employeesdb;
-
-CREATE DATABASE employeesdb;
-
-USE employeesdb;
+DROP TABLE IF EXISTS department;
+DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS employee;
 
 CREATE TABLE department (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -22,5 +20,7 @@ CREATE TABLE employee (
     last_name VARCHAR(30),
     role_id INT,
     manager_id INT NULL
+    CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id),
+    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
 );
 
