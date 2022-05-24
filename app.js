@@ -164,7 +164,7 @@ const minimap = async() => {
             minimap();
             break;
 
-            case "Add Department"
+            case "Add Department":
         }
     })
 }
