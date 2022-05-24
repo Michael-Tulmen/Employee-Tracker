@@ -15,9 +15,9 @@ const initialQuestions = [
           'Add Role',
           'Display Departments',
           'Add Department',
-          'Show Employees',
+          'Display Employees',
           'Add Employee',
-          'Update an Employee Role'
+          'Update Employee Role'
         
         ]
     }
@@ -141,7 +141,7 @@ const minimap = async() => {
     .then(function(result) {
         switch(result.initialQuestions) {
             case "Display Roles":
-            db.query('SELECT role.id, role.title, role.salary, department.name AS department_name FROM role LEFT JOIN department ON role.department_id = department', function (err,result) {
+            db.query('SELECT role.id, role.title, role.salary, department.name AS department_name FROM role LEFT JOIN department ON role.department_id = department.id', function (err, results) {
                 console.log("");
                 console.table(results);
             });
@@ -165,8 +165,34 @@ const minimap = async() => {
             break;
 
             case "Add Department":
+                addDepartment();
+            break;
+            
+            case "Display Employees":
+                db.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, '', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;", function (err, results) {
+                    console.log("");
+                    console.table(results);
+                });
+            minimap();
+            break;
+
+                case "Add Employee":
+                    db.query('SELECT role.*, department.name AS department_name FROM role LEFT JOIN department ON role.department_id = department.id', function(err, results) {
+                        console.log("");
+                        console.table(results);
+                    });
+            selectEmployee();
+            break;
+
+            case "Update Employee Role":
+                db.query('SELECT employee.id, employee.first_name, employee.last_name FROM employee', function(err, results) {
+                    console.log("");
+                    console.table(results);
+                });
+                selectEmployee();
+                break;
         }
-    })
+    });
 }
 
 //start
