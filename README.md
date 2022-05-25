@@ -119,3 +119,7 @@ If you have any questions, you may direct them to undefined using the following 
 | GitHub | https://github.com/Michael-Tulmen |
 | Email | <michaeltulmen@gmail.com> |
 
+
+## WALKTHROUGH VIDEO 
+
+https://youtu.be/NnmviZLDnuA
